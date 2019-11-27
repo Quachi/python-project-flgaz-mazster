@@ -7,7 +7,7 @@ class ProductionConfig(Config):
     MYSQL_DATABASE_HOST = 'kquach.mysql.eu.pythonanywhere-services.com'
     MYSQL_DATABASE_USER = 'kquach'
     MYSQL_DATABASE_PASSWORD = 'antiox1234'
-    MYSQL_DATABASE_DB = 'flgaz'
+    MYSQL_DATABASE_DB = 'kquach$flgaz'
 
 
 class DevelopmentConfig(Config):
