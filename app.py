@@ -8,7 +8,7 @@ mysql = MySQL()
 app.config['MYSQL_DATABASE_HOST'] = 'kquach.mysql.eu.pythonanywhere-services.com'
 app.config['MYSQL_DATABASE_USER'] = 'kquach'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'azerty94'
-app.config['MYSQL_DATABASE_DB'] = 'flgaz'
+app.config['MYSQL_DATABASE_DB'] = 'antiox1234'
 mysql.init_app(app)
 
 
