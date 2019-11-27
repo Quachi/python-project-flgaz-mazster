@@ -1,14 +1,16 @@
 from flask import Flask, request, render_template, redirect, url_for
 import csv
 from flaskext.mysql import MySQL
-
+from flask import json
 
 app = Flask(__name__)
+
+if app.config["ENV"] == "production":
+    app.config.from_object("config.ProductionConfig")
+else:
+    app.config.from_object("config.DevelopmentConfig")
+
 mysql = MySQL()
-app.config['MYSQL_DATABASE_HOST'] = 'kquach.mysql.eu.pythonanywhere-services.com'
-app.config['MYSQL_DATABASE_USER'] = 'kquach'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'azerty94'
-app.config['MYSQL_DATABASE_DB'] = 'antiox1234'
 mysql.init_app(app)
 
 
@@ -45,15 +47,18 @@ def get_twitt():
         return render_template('formulaire.html')
 
 
-@app.route('/test')
+@app.route('/message')
 def someName():
     conn = mysql.connect()
     cursor = conn.cursor()
-
     cursor.execute("SELECT * from Message")
-    data = cursor.fetchone()
-    print(data)
-    return render_template('formulaire.html')
+    data = cursor.fetchall()
+    response = app.response_class(
+        response=json.dumps(data),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
 
 
 def parse_from_csv():
