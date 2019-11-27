@@ -35,3 +35,6 @@ def dump_to_csv(d):
 	with open('./gazouilles.csv', 'a', newline='', encoding='utf-8') as f:
 		writer = csv.writer(f)
 		writer.writerow(donnees)
+
+if __name__ == "__main__":
+    app.run()
