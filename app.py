@@ -40,7 +40,7 @@ def timeline():
 
 @app.route('/timeline/<username>', methods=['GET'])
 def timeline(username):
-    return 'User'.format(username)
+    return username
 
 
 def parse_from_csv():
