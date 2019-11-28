@@ -38,7 +38,7 @@ def timeline():
     return render_template("timeline.html", messages=messages)
 
 
-@app.route('/timeline/<username>', methods=['GET'])
+@app.route('/test/<username>', methods=['GET'])
 def timeline(username):
     return username
 
