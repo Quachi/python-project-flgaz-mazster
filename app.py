@@ -11,6 +11,7 @@ else:
     app.config.from_object("config.DevelopmentConfig")
 
 db = SQLAlchemy(app)
+db.drop_all()
 db.create_all()
 
 
