@@ -65,7 +65,6 @@ def addMessage(d):
         text=d["user-text"]
     )
     session.add(message)
-    session.commit()
     session.flush()
 
 
