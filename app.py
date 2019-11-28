@@ -2,6 +2,8 @@ from flask import Flask, request, render_template, redirect, url_for
 import csv
 from flask import json
 from flask_sqlalchemy import SQLAlchemy
+import pymysql
+pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
 
@@ -10,6 +12,7 @@ if app.config["ENV"] == "production":
 else:
     app.config.from_object("config.DevelopmentConfig")
 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 
@@ -32,9 +35,12 @@ def save_gazouille():
 @app.route('/timeline', methods=['GET'])
 def timeline():
     messages = getMessage()
-    print(messages)
-    for message in messages:
-        print(message)
+    return render_template("timeline.html", messages=messages)
+
+
+@app.route('/timeline/<username>', methods=['GET'])
+def timelineUser(username):
+    messages = Message.query.filter_by(name=username)
     return render_template("timeline.html", messages=messages)
 
 
@@ -76,7 +82,7 @@ class Message(db.Model):
     name = db.Column(db.String(64),
                      index=False,
                      nullable=False)
-    text = db.Column(db.String(80),
+    text = db.Column(db.String(280),
                      index=True,
                      unique=True,
                      nullable=False)
