@@ -13,7 +13,7 @@
 	{% for g in gaz %}
 	<div id="gazouille-{{loop.index}}" class="gaz">
 		<div>{{g.user}}</div>
-		<div>{{g.text}}</div>
+		<div>{{'%.280s' % g.text}}</div>
 	</div>
 	{% endfor %}
 </body>
