@@ -38,6 +38,11 @@ def timeline():
     return render_template("timeline.html", messages=messages)
 
 
+@app.route('/timeline/<username>', methods=['GET'])
+def timeline(username):
+    return 'User'.format(username)
+
+
 def parse_from_csv():
     gaz = []
     with open('./gazouilles.csv', 'r') as f:
