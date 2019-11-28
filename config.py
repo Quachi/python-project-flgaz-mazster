@@ -4,17 +4,28 @@ class Config(object):
 
 
 class ProductionConfig(Config):
-    MYSQL_DATABASE_HOST = 'kquach.mysql.eu.pythonanywhere-services.com'
-    MYSQL_DATABASE_USER = 'kquach'
-    MYSQL_DATABASE_PASSWORD = 'antiox1234'
-    MYSQL_DATABASE_DB = 'kquach$flgaz'
+    SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
+        username="kquach",
+        password="antiox1234",
+        hostname="kquach.mysql.eu.pythonanywhere-services.com",
+        databasename="kquach$flgaz",
+    )
+    SQLALCHEMY_USERNAME = 'kquach'
+    SQLALCHEMY_PASSWORD = 'antiox1234'
+    SQLALCHEMY_DATABASE_NAME = 'kquach$flgaz'
 
 
 class DevelopmentConfig(Config):
-    MYSQL_DATABASE_HOST = 'localhost'
-    MYSQL_DATABASE_USER = 'root'
-    MYSQL_DATABASE_PASSWORD = 'password'
-    MYSQL_DATABASE_DB = 'flgaz'
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{username}:{password}@{hostname}/{databasename}".format(
+        username="root",
+        password="password",
+        hostname="localhost",
+        databasename="flgaz",
+    )
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:password@localhost/flgaz'
+    SQLALCHEMY_USERNAME = 'root'
+    SQLALCHEMY_PASSWORD = 'password'
+    SQLALCHEMY_DATABASE_NAME = 'flgaz'
 
 
 DEBUG = True

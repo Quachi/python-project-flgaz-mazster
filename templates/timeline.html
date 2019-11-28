@@ -10,10 +10,10 @@
 	</style>
 </head>
 <body>
-	{% for g in gaz %}
+	{% for m in messages %}
 	<div id="gazouille-{{loop.index}}" class="gaz">
-		<div>{{g.user}}</div>
-		<div>{{'%.280s' % g.text}}</div>
+		<div>{{m.name}}</div>
+		<div>{{'%.280s' % m.text}}</div>
 	</div>
 	{% endfor %}
 </body>
