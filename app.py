@@ -35,7 +35,7 @@ def timeline():
     print(messages)
     for message in messages:
         print(message)
-    return render_template("timeline.html", gaz=messages)
+    return render_template("timeline.html", messages=messages)
 
 
 def parse_from_csv():
