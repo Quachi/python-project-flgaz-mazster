@@ -75,7 +75,6 @@ class Message(db.Model):
                    primary_key=True)
     name = db.Column(db.String(64),
                      index=False,
-                     unique=True,
                      nullable=False)
     text = db.Column(db.String(80),
                      index=True,
