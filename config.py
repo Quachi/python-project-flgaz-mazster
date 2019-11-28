@@ -8,7 +8,7 @@ class ProductionConfig(Config):
         username="kquach",
         password="antiox1234",
         hostname="kquach.mysql.eu.pythonanywhere-services.com",
-        databasename="flgaz",
+        databasename="kquach$flgaz",
     )
     SQLALCHEMY_USERNAME = 'kquach'
     SQLALCHEMY_PASSWORD = 'antiox1234'
