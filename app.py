@@ -2,7 +2,6 @@ from flask import Flask, request, render_template, redirect, url_for
 import csv
 from flask import json
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 
@@ -12,9 +11,6 @@ else:
     app.config.from_object("config.DevelopmentConfig")
 
 db = SQLAlchemy(app)
-Session = sessionmaker(bind=db)
-Session.configure(bind=db)
-session = Session()
 
 
 @app.route('/')
