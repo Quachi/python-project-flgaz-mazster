@@ -31,8 +31,10 @@ def save_gazouille():
 
 @app.route('/timeline', methods=['GET'])
 def timeline():
-    gaz = parse_from_csv()
     messages = getMessage()
+    print(messages)
+    for message in messages:
+        print(message)
     return render_template("timeline.html", gaz=messages)
 
 
@@ -55,8 +57,8 @@ def dump_to_csv(d):
 def addMessage(d):
     donnees = [d["user-name"], d["user-text"]]
     message = Message(
-        message_name=d["user-name"],
-        message_text=d["user-text"]
+        name=d["user-name"],
+        text=d["user-text"]
     )
     db.add(message)
     db.flush()
