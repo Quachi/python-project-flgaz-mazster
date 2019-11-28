@@ -26,7 +26,7 @@ def home():
 def save_gazouille():
     if request.method == 'POST':
         print(request.form)
-        addMessage(request.form)
+        dump_to_csv(request.form)
         return redirect(url_for('timeline'))
         # return "OK"
     if request.method == 'GET':
