@@ -26,7 +26,7 @@ def home():
 def save_gazouille():
     if request.method == 'POST':
         print(request.form)
-        dump_to_csv(request.form)
+        addMessage(request.form)
         return redirect(url_for('timeline'))
         # return "OK"
     if request.method == 'GET':
@@ -64,8 +64,8 @@ def addMessage(d):
         name=d["user-name"],
         text=d["user-text"]
     )
-    session.add(message)
-    session.flush()
+    db.session.add(message)
+    db.session.commit()
 
 
 def getMessage():
