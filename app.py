@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for
 import csv
 from flask import json
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 
@@ -11,6 +12,8 @@ else:
     app.config.from_object("config.DevelopmentConfig")
 
 db = SQLAlchemy(app)
+Session = sessionmaker(bind=db)
+session = Session()
 
 
 @app.route('/')
@@ -22,14 +25,7 @@ def home():
 def save_gazouille():
     if request.method == 'POST':
         print(request.form)
-        # addMessage(request.form, db)
-        donnees = [request.form["user-name"], request.form["user-text"]]
-        message = Message(
-            name=request.form["user-name"],
-            text=request.form["user-text"]
-        )
-        db.add(message)
-        db.flush()
+        addMessage(request.form)
         return redirect(url_for('timeline'))
         # return "OK"
     if request.method == 'GET':
@@ -61,14 +57,15 @@ def dump_to_csv(d):
         writer.writerow(donnees)
 
 
-def addMessage(d, db):
+def addMessage(d):
     donnees = [d["user-name"], d["user-text"]]
     message = Message(
         name=d["user-name"],
         text=d["user-text"]
     )
-    db.add(message)
-    db.flush()
+    session.add(message)
+    session.commit()
+    session.flush()
 
 
 def getMessage():
