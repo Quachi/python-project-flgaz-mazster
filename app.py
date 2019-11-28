@@ -84,17 +84,10 @@ class Message(db.Model):
                      nullable=False)
     text = db.Column(db.String(280),
                      index=True,
-                     unique=True,
                      nullable=False)
 
     def __repr__(self):
         return '<User {}>'.format(self.name)
-
-
-class Comments(db.Model):
-    __tablename__ = 'comments'
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(4096))
 
 
 db.create_all()
