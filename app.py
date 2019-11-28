@@ -48,8 +48,9 @@ def get_twitt():
 
 @app.route('/message')
 def someName():
-    comments = Comments.query.all()
-    print(comments)
+    messages = Message.query.all()
+    for message in messages:
+        print(message)
     return render_template('formulaire.html')
 
 
