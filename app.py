@@ -22,7 +22,7 @@ def home():
 def save_gazouille():
     if request.method == 'POST':
         print(request.form)
-        dump_to_csv(request.form)
+        addMessage(request.form)
         return redirect(url_for('timeline'))
         # return "OK"
     if request.method == 'GET':
@@ -32,26 +32,8 @@ def save_gazouille():
 @app.route('/timeline', methods=['GET'])
 def timeline():
     gaz = parse_from_csv()
-    return render_template("timeline.html", gaz=gaz)
-
-
-@app.route('/twitt', methods=['GET'])
-def get_twitt():
-    if request.method == 'POST':
-        print(request.form)
-        dump_to_csv(request.form)
-        return redirect(url_for('timeline'))
-        # return "OK"
-    if request.method == 'GET':
-        return render_template('formulaire.html')
-
-
-@app.route('/message')
-def someName():
-    messages = Message.query.all()
-    for message in messages:
-        print(message)
-    return render_template('formulaire.html')
+    messages = getMessage()
+    return render_template("timeline.html", gaz=messages)
 
 
 def parse_from_csv():
@@ -68,6 +50,21 @@ def dump_to_csv(d):
     with open('./gazouilles.csv', 'a', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow(donnees)
+
+
+def addMessage(d):
+    donnees = [d["user-name"], d["user-text"]]
+    message = Message(
+        message_name=d["user-name"],
+        message_text=d["user-text"]
+    )
+    db.add(message)
+    db.flush()
+
+
+def getMessage():
+    messages = Message.query.all()
+    return messages
 
 
 class Message(db.Model):
