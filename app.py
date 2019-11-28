@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
 import csv
-from flaskext.mysql import MySQL
 from flask import json
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
@@ -10,8 +10,8 @@ if app.config["ENV"] == "production":
 else:
     app.config.from_object("config.DevelopmentConfig")
 
-mysql = MySQL()
-mysql.init_app(app)
+db = SQLAlchemy(app)
+db.create_all()
 
 
 @app.route('/')
@@ -49,16 +49,9 @@ def get_twitt():
 
 @app.route('/message')
 def someName():
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * from Message")
-    data = cursor.fetchall()
-    response = app.response_class(
-        response=json.dumps(data),
-        status=200,
-        mimetype='application/json'
-    )
-    return response
+    messages = Message.query.all()
+    print(messages)
+    return render_template('formulaire.html')
 
 
 def parse_from_csv():
@@ -77,5 +70,24 @@ def dump_to_csv(d):
         writer.writerow(donnees)
 
 
-if __name__ == '__main__':
-    app.run()
+class Message(db.Model):
+    __tablename__ = 'Message'
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    name = db.Column(db.String(64),
+                     index=False,
+                     unique=True,
+                     nullable=False)
+    text = db.Column(db.String(80),
+                     index=True,
+                     unique=True,
+                     nullable=False)
+
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
+
+class Comments(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(4096))

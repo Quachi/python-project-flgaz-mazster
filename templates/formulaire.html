@@ -1,22 +1,77 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-	<style>
-		form{
-			display: flex;
-			flex-direction: column;
-		}
-	</style>
-</head>
-<body>
-	<form id="formulaire" action="" method="post">
-		<label for="user-name">Nom d'utilisateur</label>
-		<input type="text" name="user-name">
-		<label for="user-text">Votre message</label>
-		<textarea name="user-text"></textarea>
-		<br><br>
-		<button type="submit">ENVOI</button>
-	</form>
-</body>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css"
+    />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"
+    ></script>
+  </head>
+  <body>
+    <section class="section">
+      <textarea class="textarea" placeholder="e.g. Hello world"></textarea>
+      <div class="container">
+        <h1 class="title">
+          Hello World
+        </h1>
+        <p class="subtitle">My first website with <strong>Bulma</strong>!</p>
+      </div>
+    </section>
+    <form id="formulaire" action="" method="post">
+      <label for="user-name">Nom d'utilisateur</label>
+      <input type="text" name="user-name" />
+      <label for="user-text">Votre message</label>
+      <textarea name="user-text"></textarea>
+      <br /><br />
+      <button type="submit">ENVOI</button>
+    </form>
+    <div class="field">
+      <div class="control">
+        <input
+          class="input is-primary"
+          type="text"
+          placeholder="Primary input"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <input class="input is-info" type="text" placeholder="Info input" />
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <input
+          class="input is-success"
+          type="text"
+          placeholder="Success input"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <input
+          class="input is-warning"
+          type="text"
+          placeholder="Warning input"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <input class="input is-danger" type="text" placeholder="Danger input" />
+      </div>
+    </div>
+  </body>
 </html>
