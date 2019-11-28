@@ -13,6 +13,7 @@ else:
 
 db = SQLAlchemy(app)
 Session = sessionmaker(bind=db)
+Session.configure(bind=db)
 session = Session()
 
 
