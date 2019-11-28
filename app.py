@@ -22,7 +22,14 @@ def home():
 def save_gazouille():
     if request.method == 'POST':
         print(request.form)
-        addMessage(request.form, db)
+        # addMessage(request.form, db)
+        donnees = [request.form["user-name"], request.form["user-text"]]
+        message = Message(
+            name=request.form["user-name"],
+            text=request.form["user-text"]
+        )
+        db.add(message)
+        db.flush()
         return redirect(url_for('timeline'))
         # return "OK"
     if request.method == 'GET':
