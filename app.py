@@ -11,8 +11,6 @@ else:
     app.config.from_object("config.DevelopmentConfig")
 
 db = SQLAlchemy(app)
-db.drop_all()
-db.create_all()
 
 
 @app.route('/')
@@ -50,8 +48,8 @@ def get_twitt():
 
 @app.route('/message')
 def someName():
-    messages = Message.query.all()
-    print(messages)
+    comments = Comments.query.all()
+    print(comments)
     return render_template('formulaire.html')
 
 
@@ -92,3 +90,6 @@ class Comments(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(4096))
+
+
+db.create_all()

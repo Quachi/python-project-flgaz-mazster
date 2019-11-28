@@ -16,6 +16,12 @@ class ProductionConfig(Config):
 
 
 class DevelopmentConfig(Config):
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{username}:{password}@{hostname}/{databasename}".format(
+        username="root",
+        password="password",
+        hostname="localhost",
+        databasename="flgaz",
+    )
     SQLALCHEMY_DATABASE_URI = 'mysql://root:password@localhost/flgaz'
     SQLALCHEMY_USERNAME = 'root'
     SQLALCHEMY_PASSWORD = 'password'
