@@ -7,8 +7,16 @@ from flask import Flask, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 pymysql.install_as_MySQLdb()
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["20 per minute", "1 per second"],
+)
+
 app.url_map.strict_slashes = False
 
 if app.config["ENV"] == "production":
@@ -81,6 +89,20 @@ def add_header(response):
         '195.5.249.37'
     ]
     return response
+
+@app.route("/slow")
+@limiter.limit("1 per day")
+def slow():
+    return "24"
+
+@app.route("/fast")
+def fast():
+    return "42"
+
+@app.route("/ping")
+@limiter.exempt
+def ping():
+    return 'PONG'
 
 
 def parse_from_csv():
