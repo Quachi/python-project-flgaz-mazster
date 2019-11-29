@@ -28,7 +28,7 @@ def home():
     return 'Bienvenue !'
 
 
-@app.route('/gaz', methods=['GET', 'POST'])
+@app.route('/gaz/', methods=['GET', 'POST'])
 def save_gazouille():
     """
       function save_gazouille: save gazouille or show form to add a gaz
@@ -42,7 +42,7 @@ def save_gazouille():
         return render_template('formulaire.html')
 
 
-@app.route('/timeline', methods=['GET'])
+@app.route('/timeline/', methods=['GET'])
 def timeline():
     """
       function timeline: show all gazouille from oldest to latest
@@ -55,7 +55,7 @@ def timeline():
     return render_template("timeline.html", messages=messages)
 
 
-@app.route('/timeline/<username>', methods=['GET'])
+@app.route('/timeline/<username>/', methods=['GET'])
 def timeline_user(username):
     """
       function timeline: show all gazouille to one user
