@@ -1,31 +1,17 @@
+from instance import config
+
+
 class Config(object):
     DEBUG = False
     TESTING = False
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-        username="kquach",
-        password="antiox1234",
-        hostname="kquach.mysql.eu.pythonanywhere-services.com",
-        databasename="kquach$flgaz",
-    )
-    SQLALCHEMY_USERNAME = 'kquach'
-    SQLALCHEMY_PASSWORD = 'antiox1234'
-    SQLALCHEMY_DATABASE_NAME = 'kquach$flgaz'
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{username}:{password}@{hostname}/{databasename}".format(
-        username="root",
-        password="password",
-        hostname="localhost",
-        databasename="flgaz",
-    )
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:password@localhost/flgaz'
-    SQLALCHEMY_USERNAME = 'root'
-    SQLALCHEMY_PASSWORD = 'password'
-    SQLALCHEMY_DATABASE_NAME = 'flgaz'
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
 DEBUG = True

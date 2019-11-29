@@ -1,8 +1,11 @@
-from app import DB
+"""
+      file message: DAO message
+"""
+from run import db
 from sqlalchemy import Column, String, Integer
 
 
-class Message(DB.Model):
+class Message(db.Model):
     """
       class Message: DTO of message
     """
