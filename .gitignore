@@ -4,3 +4,4 @@ venv
 .vscode
 .history
 .idea
+instance/config.py
