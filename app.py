@@ -9,6 +9,7 @@ import pymysql
 pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 
 if app.config["ENV"] == "production":
     app.config.from_object("config.ProductionConfig")
