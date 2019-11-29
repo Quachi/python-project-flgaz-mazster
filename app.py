@@ -23,8 +23,8 @@ DB = SQLAlchemy(app)
 @app.route('/')
 def home():
     """
-   function home: show route index
-   """
+      function home: show route index
+    """
     return 'Bienvenue !'
 
 
@@ -111,11 +111,11 @@ def add_message(data):
     """
       function timeline: add message in database
     """
+    from models import Message
     message = Message(
         name=data["user-name"],
         text=data["user-text"]
     )
-    from models import Message
     DB.session.add(message)
     DB.session.commit()
 
