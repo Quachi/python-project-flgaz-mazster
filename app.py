@@ -6,7 +6,6 @@ import csv
 from flask import Flask, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
-
 pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
@@ -17,8 +16,6 @@ else:
     app.config.from_object("config.DevelopmentConfig")
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
-app.config['CORS_HEADERS'] = 'Content-Type'
 
 DB = SQLAlchemy(app)
 
@@ -72,6 +69,14 @@ def timeline_user(username):
     return render_template("timeline.html", messages=messages)
 
 
+@app.after_request
+def add_header(response):
+    header = response.headers
+    response.cache_control.max_age = 300
+    header['Access-Control-Allow-Origin'] = '*'
+    return response
+
+
 def parse_from_csv():
     """
       function timeline: read and return all data in gazouille
@@ -99,8 +104,8 @@ def dump_to_csv(data):
 
 def add_message(data):
     """
-          function timeline: add message in database
-        """
+      function timeline: add message in database
+    """
     message = Message(
         name=data["user-name"],
         text=data["user-text"]
