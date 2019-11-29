@@ -1,22 +1,20 @@
-from app import db
+from app import DB
+from sqlalchemy import Column, String, Integer
 
 
-class Message(db.Model):
-    __tablename__ = 'Message'
-    id = db.Column(db.Integer,
-                   primary_key=True)
-    name = db.Column(db.String(64),
-                     index=False,
-                     unique=True,
-                     nullable=False)
-    message = db.Column(db.String(80),
-                        index=True,
-                        unique=True,
-                        nullable=False)
-    created = db.Column(db.DateTime,
-                        index=False,
-                        unique=False,
-                        nullable=False)
+class Message(DB.Model):
+    """
+      class Message: DTO of message
+    """
+    __tablename__ = 'message'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(64),
+                  index=False,
+                  nullable=False)
+    text = Column(String(280),
+                  index=True,
+                  nullable=False)
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<Message {}>'.format(self.name)

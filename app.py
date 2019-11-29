@@ -1,28 +1,29 @@
 """
       file app: entry point for project gaz
 """
+
 import csv
 from flask import Flask, request, render_template, redirect, url_for
-from sqlalchemy import Column, String, Integer
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
+
 pymysql.install_as_MySQLdb()
 
-APP = Flask(__name__)
+app = Flask(__name__)
 
-if APP.config["ENV"] == "production":
-    APP.config.from_object("config.ProductionConfig")
+if app.config["ENV"] == "production":
+    app.config.from_object("config.ProductionConfig")
 else:
-    APP.config.from_object("config.DevelopmentConfig")
+    app.config.from_object("config.DevelopmentConfig")
 
-APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-APP.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
-APP.config['CORS_HEADERS'] = 'Content-Type'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
+app.config['CORS_HEADERS'] = 'Content-Type'
 
-DB = SQLAlchemy(APP)
+DB = SQLAlchemy(app)
 
 
-@APP.route('/')
+@app.route('/')
 def home():
     """
    function home: show route index
@@ -30,7 +31,7 @@ def home():
     return 'Bienvenue !'
 
 
-@APP.route('/gaz', methods=['GET', 'POST'])
+@app.route('/gaz', methods=['GET', 'POST'])
 def save_gazouille():
     """
       function save_gazouille: save gazouille or show form to add a gaz
@@ -44,7 +45,7 @@ def save_gazouille():
         return render_template('formulaire.html')
 
 
-@APP.route('/timeline', methods=['GET'])
+@app.route('/timeline', methods=['GET'])
 def timeline():
     """
       function timeline: show all gazouille from oldest to latest
@@ -57,7 +58,7 @@ def timeline():
     return render_template("timeline.html", messages=messages)
 
 
-@APP.route('/timeline/<username>', methods=['GET'])
+@app.route('/timeline/<username>', methods=['GET'])
 def timeline_user(username):
     """
       function timeline: show all gazouille to one user
@@ -66,6 +67,7 @@ def timeline_user(username):
       template
       render html template timeline
     """
+    from models import Message
     messages = Message.query.filter_by(name=username)
     return render_template("timeline.html", messages=messages)
 
@@ -97,12 +99,13 @@ def dump_to_csv(data):
 
 def add_message(data):
     """
-      function timeline: add message in database
-    """
+          function timeline: add message in database
+        """
     message = Message(
         name=data["user-name"],
         text=data["user-text"]
     )
+    from models import Message
     DB.session.add(message)
     DB.session.commit()
 
@@ -114,26 +117,9 @@ def get_message():
       -------
       messages
     """
+    from models import Message
     messages = Message.query.all()
     return messages
-
-
-class Message(DB.Model):
-    """
-      class Message: DTO of message
-    """
-    __tablename__ = 'message'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String(64),
-                  index=False,
-                  nullable=False)
-    text = Column(String(280),
-                  index=True,
-                  nullable=False)
-
-    def __repr__(self):
-        return '<User {}>'.format(self.name)
 
 
 DB.create_all()
