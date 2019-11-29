@@ -13,6 +13,9 @@ else:
     app.config.from_object("config.DevelopmentConfig")
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 db = SQLAlchemy(app)
 
 
