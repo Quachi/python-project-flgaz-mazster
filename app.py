@@ -13,3 +13,7 @@ limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["20 per minute", "1 per second"],
 )
+
+@limiter.limit("1 per day")
+def slow():
+    return "24"
